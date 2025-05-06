@@ -59,7 +59,7 @@ async function fetchLiveNow() {
       md.artist ? `${md.artist} – ${md.title}` : (ct.title || "No live show");
     document.getElementById("now-art").src = md.artwork_url || FALLBACK_ART;
   } catch (e) {
-    console.error("Live-now fetch error:", e);
+    console.error("Live-now error:", e);
     document.getElementById("now-dj").textContent = "Error fetching live info";
     document.getElementById("now-art").src = FALLBACK_ART;
   }
@@ -157,13 +157,13 @@ async function fetchNowPlayingArchive() {
       el.textContent = "Now Playing: Unknown Show";
     }
   } catch (err) {
-    console.error("Archive-now fetch error:", err);
+    console.error("Archive-now error:", err);
     document.getElementById("now-archive").textContent = "Unable to load archive show";
   }
 }
 
 // ──────────────────────────────────────────────────────────
-// 4) ADMIN & UI ACTIONS (unchanged stubs here…)
+// 4) ADMIN & UI ACTIONS (stubs)
 // ──────────────────────────────────────────────────────────
 function addMixcloud()    { /* … */ }
 function deleteMixcloud() { /* … */ }
@@ -174,7 +174,7 @@ function closeChatModal(){ /* … */ }
 // 5) SINGLE DOMContentLoaded + WAVEFORM
 // ──────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
-  // a) Dynamic data
+  // a) Dynamic content
   fetchLiveNow();
   fetchWeeklySchedule();
   fetchNowPlayingArchive();
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(fetchLiveNow,           30000);
   setInterval(fetchNowPlayingArchive, 30000);
 
-  // c) Mixcloud shuffling + mobile removal
+  // c) Mixcloud shuffle & mobile removal
   if (isMobile) {
     document.querySelector(".mixcloud")?.remove();
   } else {
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(mc);
   }
 
-  // d) Pop-out player button
+  // d) Pop-out player
   document.getElementById("popOutBtn")?.addEventListener("click", () => {
     const src = document.getElementById("inlinePlayer").src;
     const w   = window.open("", "CCRPlayer", "width=400,height=200,resizable=yes");
@@ -205,8 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Cutters Choice Player</title>
         <style>
-          body{margin:0;background:#111;display:flex;
-               align-items:center;justify-content:center;height:100vh;}
+          body{margin:0;background:#111;display:flex;align-items:center;justify-content:center;height:100vh;}
           iframe{width:100%;height:180px;border:none;border-radius:4px;}
         </style>
       </head><body>
@@ -216,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // e) Waveform injection
-  (function(){
+  ;(function(){
     const header = document.querySelector("header");
     if (!header) return;
 
@@ -233,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       el.style.zIndex   = "1";
     });
 
-    // 2) Audio element
+    // 2) Audio
     let audio = document.getElementById("analyzer");
     if (!audio) {
       audio = document.createElement("audio");
@@ -255,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     document.body.addEventListener("click", unlock);
 
-    // 3) Web Audio & analyser
+    // 3) Analyser setup
     const srcNode  = audioCtx.createMediaElementSource(audio);
     const analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
@@ -264,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray    = new Uint8Array(bufferLength);
 
-    // 4) Resize helper
+    // 4) Resize
     function resize() {
       canvas.width  = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
@@ -272,19 +271,17 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", resize);
     resize();
 
-    // 5) Only start drawing once actual audio plays
+    // 5) Draw on actual audio
     audio.addEventListener("playing", () => {
       function draw() {
         requestAnimationFrame(draw);
         analyser.getByteTimeDomainData(dataArray);
-
         const ctx2d = canvas.getContext("2d");
         ctx2d.clearRect(0,0,canvas.width,canvas.height);
         ctx2d.lineWidth   = 2;
         ctx2d.strokeStyle = getComputedStyle(document.documentElement)
                               .getPropertyValue("--brand-teal").trim();
         ctx2d.beginPath();
-
         let x = 0;
         const slice = canvas.width / bufferLength;
         for (let i = 0; i < bufferLength; i++) {
