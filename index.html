@@ -19,45 +19,32 @@
 </head>
 <body>
   <header>
-    <div class="logo-container">
-      <img
-        class="logo"
-        src="https://i.imgur.com/72gdPJY.png"
-        alt="Cutters Choice Radio Logo"
-        loading="lazy"
-      >
-    </div>
+    <!-- Waveform canvas behind header -->
+    <canvas id="waveform"></canvas>
 
+    <!-- Hidden, muted audio for the analyzer -->
+    <audio
+      id="analyzer"
+      src="https://cutters-choice-radio.radiocult.fm/stream"
+      crossOrigin="anonymous"
+      autoplay
+      muted
+    ></audio>
+
+    <!-- Your normal header content -->
+    <div class="logo-container">
+      <img class="logo" src="https://i.imgur.com/72gdPJY.png" alt="Cutters Choice Radio Logo" loading="lazy">
+    </div>
     <div class="title">
       <h1>Cutters Choice Radio</h1>
       <p class="tagline">The home of relentless flavas and significant bangers!</p>
     </div>
-
     <div class="logo-container">
-      <img
-        class="logo"
-        src="https://i.imgur.com/72gdPJY.png"
-        alt="Cutters Choice Radio Logo"
-        loading="lazy"
-      >
+      <img class="logo" src="https://i.imgur.com/72gdPJY.png" alt="Cutters Choice Radio Logo" loading="lazy">
     </div>
   </header>
 
   <div class="teal-line"></div>
-
-  <!-- TEST: audio analyzer CORS check -->
-  <audio
-    id="analyzer"
-    src="https://cutters-choice-radio.radiocult.fm/stream"
-    crossOrigin="anonymous"
-    autoplay
-    muted
-  ></audio>
-  <script>
-    document
-      .getElementById('analyzer')
-      .addEventListener('error', e => console.error('Audio error', e));
-  </script>
 
   <div class="grid-container">
     <!-- CHAT SECTION -->
@@ -74,7 +61,7 @@
         <button class="popout-btn" onclick="openChatPopup()">Pop Out Chat</button>
       </div>
       <div class="rc-user-list-container">
-        <h3></h3>
+        <h3>Listeners</h3>
         <div class="rc-user-list"></div>
       </div>
     </section>
@@ -83,18 +70,22 @@
     <section class="live-player">
       <h2 id="now-dj">Live Now</h2>
       <div class="player-container">
-        <iframe id="inlinePlayer"
+        <iframe
+          id="inlinePlayer"
           title="Cutters Choice Radio player"
           src="https://app.radiocult.fm/embed/square-player/cutters-choice-radio?theme=midnight&primaryColor=%235A8785&corners=sharp"
-          allow="autoplay" loading="lazy">
+          allow="autoplay"
+          loading="lazy">
         </iframe>
         <div id="now-archive">Loading archive show…</div>
         <button id="popOutBtn" class="popout-btn">Pop Out Player</button>
         <button id="chatPopupBtn" class="popout-btn chat-btn-mobile" onclick="openChatPopup()">Chat</button>
       </div>
-      <h3>This Weeks Shows</h3>
+      <h3>This Week’s Shows</h3>
       <img id="now-art" src="https://i.imgur.com/EHhS47F.png" alt="Current DJ Artwork" loading="lazy">
     </section>
+
+    <!-- (…and then your schedule, mixcloud, footer, scripts, etc.) --
 
     <!-- SCHEDULE SECTION -->
     <section class="schedule">
