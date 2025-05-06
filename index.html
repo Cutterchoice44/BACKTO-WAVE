@@ -32,18 +32,65 @@
     ></audio>
 
     <!-- Your normal header content -->
+    <div class="logo-container"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cutters Choice Radio</title>
+
+  <!-- Preconnects for faster API/widget loads -->
+  <link rel="preconnect" href="https://app.radiocult.fm" />
+  <link rel="preconnect" href="https://widget.mixcloud.com" />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Bebas Neue from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <!-- Socket.IO client for chat participants -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" defer></script>
+</head>
+<body>
+  <header>
+    <!-- 1) Waveform canvas behind everything -->
+    <canvas id="waveform"></canvas>
+
+    <!-- 2) Hidden, muted audio for the analyser -->
+    <audio
+      id="analyzer"
+      src="https://cutters-choice-radio.radiocult.fm/stream"
+      crossOrigin="anonymous"
+      autoplay
+      muted
+    ></audio>
+
+    <!-- 3) Your normal header content -->
     <div class="logo-container">
-      <img class="logo" src="https://i.imgur.com/72gdPJY.png" alt="Cutters Choice Radio Logo" loading="lazy">
+      <img
+        class="logo"
+        src="https://i.imgur.com/72gdPJY.png"
+        alt="Cutters Choice Radio Logo"
+        loading="lazy"
+      />
     </div>
+
     <div class="title">
       <h1>Cutters Choice Radio</h1>
       <p class="tagline">The home of relentless flavas and significant bangers!</p>
     </div>
+
     <div class="logo-container">
-      <img class="logo" src="https://i.imgur.com/72gdPJY.png" alt="Cutters Choice Radio Logo" loading="lazy">
+      <img
+        class="logo"
+        src="https://i.imgur.com/72gdPJY.png"
+        alt="Cutters Choice Radio Logo"
+        loading="lazy"
+      />
     </div>
   </header>
 
+  <!-- the teal line animation under the header -->
   <div class="teal-line"></div>
 
   <div class="grid-container">
