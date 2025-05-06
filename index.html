@@ -9,10 +9,10 @@
   <link rel="preconnect" href="https://app.radiocult.fm">
   <link rel="preconnect" href="https://widget.mixcloud.com">
 
-<!-- Main stylesheet -->
-<link rel="stylesheet" href="style.css">
-<!-- Bebas Neue from Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Bebas Neue from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
   <!-- Socket.IO client for chat participants -->
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" defer></script>
@@ -42,8 +42,23 @@
       >
     </div>
   </header>
+
   <div class="teal-line"></div>
-  
+
+  <!-- TEST: audio analyzer CORS check -->
+  <audio
+    id="analyzer"
+    src="https://cutters-choice-radio.radiocult.fm/stream"
+    crossOrigin="anonymous"
+    autoplay
+    muted
+  ></audio>
+  <script>
+    document
+      .getElementById('analyzer')
+      .addEventListener('error', e => console.error('Audio error', e));
+  </script>
+
   <div class="grid-container">
     <!-- CHAT SECTION -->
     <section class="chat">
